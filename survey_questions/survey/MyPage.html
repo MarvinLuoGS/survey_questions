@@ -1,0 +1,57 @@
+{{ block title }}
+    Survey
+{{ endblock }}
+{{ block content }}
+
+    {{ formfield 'favor_fruit' }}
+
+    <p>
+        Select all your favorite fruits
+    </p>
+    {{ formfield 'favor_apple' }}
+    {{ formfield 'favor_banana' }}
+    {{ formfield 'favor_cherry' }}
+    {{ formfield 'favor_durian' }}
+
+    {{ formfield 'tongue' }}
+
+    <div id='tongue_other_field' style='display:none;'>
+    {{ formfield 'tongue_other'}}
+    </div>
+
+    {{ next_button }}
+    <script>
+    // Select the first 3 radio input and add an 'event listener'(in this case, click) to it, when they are clicked
+    // the field will be hidden
+    $('#id_tongue-0,#id_tongue-1,#id_tongue-2').on('click', function() {
+        document.getElementById("tongue_other_field").style.display="none";
+    });
+    // Select the last (in this case, 4th) radio input
+    // when it is clicked, the field will be shown on the page
+    $('#id_tongue-3').on('click', function() {
+        document.getElementById("tongue_other_field").style.display="";
+    });
+
+    // when the page is submitted and trigger some otree error message, these codes make the field hide or show 
+    // conditional on whether the radio is checked 
+    //(formfield is used to generate <input> in otree, the value of input will be 'stored' and showed again on 
+    //the page when the submit is rejected because it triggers some error messages. so, participants won't need to answer the same questions again)
+    let tongue_other_checked = false;
+    $('#id_tongue-0,#id_tongue-1,#id_tongue-2').each(function() {
+        if($(this).is(':checked')){
+            tongue_other_checked = false;
+        }
+    });
+    $('#id_tongue-3').each(function() {
+        if($(this).is(':checked')){
+            tongue_other_checked = true;
+        }
+    });
+    if(tongue_other_checked) {
+        document.getElementById("tongue_other_field").style.display="";
+    } else {
+        document.getElementById("tongue_other_field").style.display="none";
+    };
+
+    </script>
+{{ endblock }}
