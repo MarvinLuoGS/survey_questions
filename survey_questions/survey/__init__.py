@@ -19,6 +19,13 @@ class Subsession(BaseSubsession):
 class Group(BaseGroup):
     pass
 
+def make_freq_field(label):
+    return models.IntegerField(
+        label=label,
+        choices=[1,2,3,4,5],
+        widget=widgets.RadioSelect
+    )
+
 
 class Player(BasePlayer):
     # select one 
@@ -68,13 +75,17 @@ class Player(BasePlayer):
         label='Enter your mother tongue:',
         blank=True,
     )
-
+    freq_apple = make_freq_field(label='Apple')
+    freq_banana = make_freq_field(label='Banana')
+    freq_cherry = make_freq_field(label='Cherry')
+    freq_durian = make_freq_field(label='Durian')
 
 
 # PAGES
 class MyPage(Page):
     form_model = 'player'
-    form_fields = ['favor_fruit','favor_apple','favor_banana','favor_cherry','favor_durian','tongue','tongue_other']
+    form_fields = ['favor_fruit','favor_apple','favor_banana','favor_cherry','favor_durian','tongue','tongue_other',
+    'freq_apple','freq_banana','freq_cherry','freq_durian']
 
     @staticmethod
     def error_message(player: Player, values):
@@ -82,6 +93,7 @@ class MyPage(Page):
             return 'At least select one!'
         if values['tongue'] == 4 and values['tongue_other'] == '':
             return 'Please enter your mother tongue!'
+    
 
 class ResultsWaitPage(WaitPage):
     pass

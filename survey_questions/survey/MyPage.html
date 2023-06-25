@@ -2,7 +2,24 @@
     Survey
 {{ endblock }}
 {{ block content }}
-
+<style>
+    th{
+        width:100px;
+        height:60px;
+        text-align:center;
+        border:1px solid #000000;
+        background-color:#A9A9A9;
+    }
+    td{
+        width:100px;
+        text-align:center;
+        vertical-align:middle !important;
+        border:1px solid #000000;
+    }
+    table{
+        border:1px solid #000000;
+    }
+</style>
     {{ formfield 'favor_fruit' }}
 
     <p>
@@ -18,7 +35,44 @@
     <div id='tongue_other_field' style='display:none;'>
     {{ formfield 'tongue_other'}}
     </div>
-
+<p>
+    How often do you eat these fruits?
+</p>
+    <table>
+        <tr>
+            <th></th>
+            <th>Always</th>
+            <th>Often</th>
+            <th>Occasionally</th>
+            <th>Rare</th>
+            <th>Never</th>
+        </tr>
+        <tr>
+            <th>{{ form.freq_apple.label }}</th>
+            {{ for choice in form.freq_apple }}
+                <td>{{ choice }}</td>
+            {{ endfor }}
+        </tr>
+        <tr>
+            <th>{{ form.freq_banana.label }}</th>
+            {{ for choice in form.freq_banana }}
+                <td>{{ choice }}</td>
+            {{ endfor }}
+        </tr>
+        <tr>
+            <th>{{ form.freq_cherry.label }}</th>
+            {{ for choice in form.freq_cherry }}
+                <td>{{ choice }}</td>
+            {{ endfor }}
+        </tr>
+        <tr>
+            <th>{{ form.freq_durian.label }}</th>
+            {{ for choice in form.freq_durian }}
+                <td>{{ choice }}</td>
+            {{ endfor }}
+        </tr>
+    </table>
+<br>
     {{ next_button }}
     <script>
     // Select the first 3 radio input and add an 'event listener'(in this case, click) to it, when they are clicked
